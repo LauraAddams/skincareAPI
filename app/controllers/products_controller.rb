@@ -1,13 +1,5 @@
 class ProductsController < ApplicationController
 
-  # def getIngredients
-  #   products = products.all
-  #
-  #   newProds = products.each do |prod|
-  #     prod.ingredients = prod.ingredients.split(',')
-  #   end
-  # end
-
   def index
     products = Product.all
 
@@ -17,20 +9,37 @@ class ProductsController < ApplicationController
   end
 
   def show
-  end
+    product = Product.find_by(id: params[:id])
 
-  def new
+    if product
+      render json: product, status: :ok
+    else
+      render json: { ok: false }, status: :not_found
+    end
   end
 
   def create
+    product = Product.create(product_params)
+
+    if product.valid?
+      render json: product, status: :ok
+    else
+      render json: {errors: product.errors.messages}, status: :bad_request
+    end
   end
 
-  def edit
-  end
+  # def edit
+  # end
+  #
+  # def update
+  # end
+  #
+  # def destroy
+  # end
 
-  def update
-  end
+  private
 
-  def destroy
+  def product_params
+    params.permit(:brand, :name, :ingredients)
   end
 end
