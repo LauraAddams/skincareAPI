@@ -1,9 +1,9 @@
 class IngredientsController < ApplicationController
   def index
-    ingredients = Ingredient.all
+    ingredients = Ingredient.find(1).ingredient.split(",").map(&:strip)
 
     render(
-      json: ingredients.as_json(methods: :all_ingredients), status: :ok
+      json: ingredients.as_json(), status: :ok
     )
   end
 end
