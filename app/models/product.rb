@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  validates :brand, presence: true
   validates :name, presence: true
   validates :ingredients, presence: true
 

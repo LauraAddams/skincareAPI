@@ -4,7 +4,8 @@ class ProductsController < ApplicationController
     products = Product.all
 
     render(
-      json: products.as_json(methods: :ingredient_list, only: [:brand, :name]), status: :ok
+      json: products,
+      status: :ok
     )
   end
 
@@ -22,7 +23,7 @@ class ProductsController < ApplicationController
     product = Product.create(product_params)
 
     if product.valid?
-      render json: product, status: :ok
+      render json: product, status: :created
     else
       render json: {errors: product.errors.messages}, status: :bad_request
     end
