@@ -57,10 +57,17 @@ describe ProductsController do
   end
 
   describe 'create' do
+    let(:one) { ingredients(:one) }
     let(:product_data) {
       {  brand: 'Generic',
         name: 'Jojoba Oil',
         ingredients: 'Jojoba oil'
+      }
+    }
+    let(:ingred_data) {
+      {  brand: 'Generic',
+        name: 'Test data',
+        ingredients: 'MyString'
       }
     }
 
@@ -90,5 +97,21 @@ describe ProductsController do
       body.must_include "errors"
       body["errors"].must_include "name"
     end
+
+    # it 'adds ingredients to all_ingredients if not in the db' do
+    #   assert_difference 'Product.count', 1 do
+    #     post products_url, params: :product_data
+    #     assert_response :success
+    #   end
+    # end
+
+    # it 'does not add ingredient if already in ingredient db' do
+    #   one.ingredient.must_include 'MyString'
+    #
+    #   assert_difference 'Product.count', 1 do
+    #     post products_url, params: :ingred_data
+    #     assert_response :success
+    #   end
+    # end
   end
 end

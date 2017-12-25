@@ -23,6 +23,18 @@ class ProductsController < ApplicationController
     product = Product.create(product_params)
 
     if product.valid?
+      new_ing_array = product.ingredients.downcase.split(",").map(&:strip)
+
+      new_ing_array.each do |i|
+        ingredient_array = Ingredient.find(1).ingredient.split(",").map(&:strip)
+        all = Ingredient.find(1)
+
+        if ingredient_array.exclude? i
+          all.ingredient << ',' + i
+          all.save
+        end
+
+      end
       render json: product, status: :created
     else
       render json: {errors: product.errors.messages}, status: :bad_request
