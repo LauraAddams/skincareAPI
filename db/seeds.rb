@@ -17,9 +17,9 @@ CSV_FILES.each do |file_name|
 
   CSV.foreach(file_name, :headers => true) do |row|
     product = Product.new
-    product.brand = row['brand']
-    product.name = row['product_name']
-    product.ingredients = row[2..-1].join(',')
+    product.brand = row['brand'].downcase
+    product.name = row['product_name'].downcase
+    product.ingredients = row[2..-1].join(',').downcase
 
     successful = product.save
     if !successful

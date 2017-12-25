@@ -3,9 +3,9 @@
 one:
   brand: MyString
   name: MyString
-  ingredients: MyString
+  ingredients: mystring
 
 two:
   brand: MyString
   name: MyString
-  ingredients: MyString
+  ingredients: mystring

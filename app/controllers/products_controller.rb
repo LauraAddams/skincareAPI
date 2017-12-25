@@ -26,8 +26,8 @@ class ProductsController < ApplicationController
       new_ing_array = product.ingredients.downcase.split(",").map(&:strip)
 
       new_ing_array.each do |i|
-        ingredient_array = Ingredient.find(1).ingredient.split(",").map(&:strip)
-        all = Ingredient.find(1)
+        ingredient_array = Ingredient.first.ingredient.split(",").map(&:strip)
+        all = Ingredient.first
 
         if ingredient_array.exclude? i
           all.ingredient << ',' + i
