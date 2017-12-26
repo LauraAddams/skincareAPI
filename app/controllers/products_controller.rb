@@ -23,17 +23,14 @@ class ProductsController < ApplicationController
     product = Product.create(product_params)
 
     if product.valid?
-      new_ing_array = product.ingredients.downcase.split(",").map(&:strip)
+      ingredient_array = product.ingredients.downcase.split(",").map(&:strip)
 
-      new_ing_array.each do |i|
-        ingredient_array = Ingredient.first.ingredient.split(",").map(&:strip)
-        all = Ingredient.first
-
-        if ingredient_array.exclude? i
-          all.ingredient << ',' + i
-          all.save
+      ingredient_array.each do |i|
+        if Ingredient.where('ingredient LIKE ? ', "%#{i}%").count == 0
+          new = Ingredient.new
+          new.ingredient = i
+          new.save
         end
-
       end
       render json: product, status: :created
     else

@@ -99,14 +99,14 @@ describe ProductsController do
     end
 
     it 'adds ingredients to all_ingredients if not in the db' do
-      Ingredient.first.ingredient.must_equal "mystring"
+      Ingredient.where('ingredient LIKE ? ', "jojoba oil").count.must_equal 0
 
       assert_difference 'Product.count', 1 do
         post products_url, params: product_data
         assert_response :success
       end
 
-      Ingredient.first.ingredient.must_equal "mystring,jojoba oil"
+      Ingredient.where('ingredient LIKE ? ', "jojoba oil").count.must_equal 1
     end
 
     it 'does not add ingredient if already in ingredient db' do
@@ -117,7 +117,7 @@ describe ProductsController do
         assert_response :success
       end
 
-      Ingredient.first.ingredient.must_equal "mystring"
+      Ingredient.where('ingredient LIKE ? ', "mystring").count.must_equal 1
     end
   end
 end
