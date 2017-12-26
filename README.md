@@ -73,9 +73,9 @@ Returns a single product by id number
 ### `POST /products`
 Adds a product, **new** ingredients are added to the ingredient database  
 Accepted params (*all fields must be present*):
-- brand (string)
-- name (string)
-- ingredients (string, separated by commas) **ex.** "water,alcohol,citric acid,..."  
+- brand (*string*)
+- name (*string*)
+- ingredients (*string, separated by commas*) **ex. "water,alcohol,citric acid,..."**  
 
 ## Ingredients
 
@@ -163,10 +163,10 @@ GET https://skincare-api.herokuapp.com/product?q=rose&limit=25&page=1
 ### Cheatsheet
 
 | Method  | Endpoint  | Description |
-| ----- | --------- | ------ |
-| GET | `/products` | return an array of `product`|
-| GET | `/products/:id` | return an object with matching `:id`. If the id doesn't exist response will be "ok": false|
-| POST | `/products` | adds a new product with the correct params|
-| GET | `/ingredients` | return an array of `ingredient`|
-| GET | `/product?q=` | searches `product` for matching entries (pagination params: limit, page)|
-| GET | `/ingredient?q=` | searches `ingredient` for matching entries (pagination params: limit, page)|
+| ----- | ---------- | ------ |
+| GET | `/products` | Returns an array of `product`|
+| GET | `/products/:id` | Returns an object with matching `:id`. If the id doesn't exist response will be 404|
+| POST | `/products` | Adds a new product with the correct params. Invalid entries response will be 400|
+| GET | `/ingredients` | Returns an array of `ingredient`|
+| GET | `/product?q=` | Returns an array of searched `product`. Empty array for no results (pagination params: limit, page)|
+| GET | `/ingredient?q=` | Returns an array of searched `ingredient`. Empty array for no results (pagination params: limit, page)|
