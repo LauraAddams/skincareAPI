@@ -25,7 +25,6 @@ Returns a list of all products
             "water",
             "butylene glycol",
             "alcohol",
-            ...
         ]
     },
     {
@@ -36,7 +35,6 @@ Returns a list of all products
             "camellia sinensis leaf water",
             "phyllostachis bambusoides juice",
             "panax ginseng root extract",
-            ...
         ]
     },
     {
@@ -47,10 +45,8 @@ Returns a list of all products
             "panax ginseng root extract",
             "cyclopentasiloxane",
             "dimethicone",
-            ...
         ]
     },
-    ...
 ]
 ```
 
@@ -70,37 +66,16 @@ Returns a single product by id number
         "peg-75",
         "glycereth-26",
         "ascorbyl glucoside",
-        "camellia sinensis leaf extract",
-        "panax ginseng root extract",
-        "glycyrrhiza glabra (licorice) root extract",
-        "magnolia obovata bark extract",
-        "equisetum arvense extract",
-        "calcium pantetheine sulfonate",
-        "betaine",
-        "biosaccharide gum-1",
-        "carbomer",
-        "peg-60 hydrogenated castor oil",
-        "sodium citrate",
-        "cellulose gum",
-        "citric acid",
-        "triethanolamine",
-        "potassium hydroxide",
-        "disodium edta",
-        "methylparaben",
-        "propylparaben",
-        "fragrance"
     ]
 }
 ```
 
 #### `POST /products`
 Adds a product, **new** ingredients are added to the ingredient database
-- Accepted params(all fields must be present):
+Accepted params (*all fields must be present*):
 - brand (string)
 - name (string)
-- ingredients (string)
--*string separated by commas*
--ex. "water,alcohol,citric acid,..."  
+- ingredients (string, separated by commas) **ex.** "water,alcohol,citric acid,..."  
 
 ### Ingredients
 
@@ -121,12 +96,11 @@ Returns a list of all unique ingredients
         "id": 3,
         "ingredient": "alcohol"
     },
-    ...
 ]
 ```
 
 ### Queries
-Products and ingredients can both be queried at their **singular** routes
+Products and ingredients can both be queried at their **singular** route
 
 #### `GET /product?q=rose+water`
 Searches brand, name, and ingredients for *LIKE* values    
@@ -158,7 +132,6 @@ Searches brand, name, and ingredients for *LIKE* values
             "camillia sinensis leaf extract."
         ]
     },
-    ...
 ]
 ```
 
@@ -180,3 +153,9 @@ Searches ingredient for *LIKE* values
 
 #### Query Pagination
 Addition params can be sent for pagination results
+- limit (*default 10*)
+- page
+#### Example
+```
+GET https://skincare-api.herokuapp.com/product?q=rose&limit=25&page=1
+```
