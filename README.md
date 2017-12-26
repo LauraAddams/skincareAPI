@@ -10,9 +10,9 @@ The idea is to provide users with a catalog of products with brand, name, and in
 GET https://skincare-api.herokuapp.com
 ```
 
-### Products
+## Products
 
-#### `GET /products`
+### `GET /products`
 Returns a list of all products  
 
 ```json
@@ -50,7 +50,7 @@ Returns a list of all products
 ]
 ```
 
-#### `GET /products/1`
+### `GET /products/1`
 Returns a single product by id number
 
 ```json
@@ -70,16 +70,16 @@ Returns a single product by id number
 }
 ```
 
-#### `POST /products`
-Adds a product, **new** ingredients are added to the ingredient database
+### `POST /products`
+Adds a product, **new** ingredients are added to the ingredient database  
 Accepted params (*all fields must be present*):
 - brand (string)
 - name (string)
 - ingredients (string, separated by commas) **ex.** "water,alcohol,citric acid,..."  
 
-### Ingredients
+## Ingredients
 
-#### `GET /ingredients`
+### `GET /ingredients`
 Returns a list of all unique ingredients  
 
 ```json
@@ -99,10 +99,10 @@ Returns a list of all unique ingredients
 ]
 ```
 
-### Queries
+## Queries
 Products and ingredients can both be queried at their **singular** route
 
-#### `GET /product?q=rose+water`
+### `GET /product?q=rose+water`
 Searches brand, name, and ingredients for *LIKE* values    
 
 ```json
@@ -135,7 +135,7 @@ Searches brand, name, and ingredients for *LIKE* values
 ]
 ```
 
-#### `GET /ingredient?q=rose+water`
+### `GET /ingredient?q=rose+water`
 Searches ingredient for *LIKE* values  
 
 ```json
@@ -151,11 +151,22 @@ Searches ingredient for *LIKE* values
 ]
 ```
 
-#### Query Pagination
+### Query Pagination
 Addition params can be sent for pagination results
 - limit (*default 10*)
 - page
-#### Example
+### Example
 ```
 GET https://skincare-api.herokuapp.com/product?q=rose&limit=25&page=1
 ```
+
+### Cheatsheet
+
+| Method  | Endpoint  | Description |
+| ----- | --------- | ------ |
+| GET | `/products` | return an array of `product`|
+| GET | `/products/:id` | return an object with matching `:id`. If the id doesn't exist response will be "ok": false|
+| POST | `/products` | adds a new product with the correct params|
+| GET | `/ingredients` | return an array of `ingredient`|
+| GET | `/product?q=` | searches `product` for matching entries (pagination params: limit, page)|
+| GET | `/ingredient?q=` | searches `ingredient` for matching entries (pagination params: limit, page)|
