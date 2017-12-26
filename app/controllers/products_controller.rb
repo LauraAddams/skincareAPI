@@ -41,6 +41,19 @@ class ProductsController < ApplicationController
     end
   end
 
+  def search
+    limit = params[:limit] || 10
+    page = params[:page] || 1
+    offset = ((page.to_i - 1) * limit.to_i) || 0
+
+    q = params[:q].downcase || nil
+    products = []
+    products = Product.where('name LIKE ? '\
+      'OR brand LIKE ? '\
+      'OR ingredients LIKE ?', "%#{q}%", "%#{q}%", "%#{q}%").limit(limit).offset(offset) if q
+    render json: products, status: :ok
+  end
+
   # def edit
   # end
   #
