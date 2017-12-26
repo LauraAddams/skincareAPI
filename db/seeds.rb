@@ -45,7 +45,7 @@ CSV_FILES.each do |file_name|
     end
   end
 
-  all_ingredients = all_ingredients.uniq
+  all_ingredients = all_ingredients.uniq.sort
 end
 
 all_ingredients.each do |i|
