@@ -48,10 +48,12 @@ CSV_FILES.each do |file_name|
   all_ingredients = all_ingredients.uniq
 end
 
-new = Ingredient.new
-new.ingredient = all_ingredients.join(',')
+all_ingredients.each do |i|
+  new = Ingredient.new
+  new.ingredient = i
 
-successful = new.save
-if !successful
-  failures << new
+  successful = new.save
+  if !successful
+    failures << new
+  end
 end
