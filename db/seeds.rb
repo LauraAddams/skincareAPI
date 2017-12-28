@@ -6,7 +6,7 @@ PRODUCT1 = Rails.root.join('db', 'seed_data', 'Prod1.csv')
 PRODUCT2 = Rails.root.join('db', 'seed_data', 'Prod2.csv')
 RED1 = Rails.root.join('db', 'seed_data', 'red1.csv')
 
-CSV_FILES = [PRODUCT1, PRODUCT2]
+CSV_FILES = [ASIAN_BEAUTY1, ASIAN_BEAUTY2, PRODUCT1, PRODUCT2, RED1]
 
 # Product model seeds
 CSV_FILES.each do |file_name|
