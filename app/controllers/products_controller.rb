@@ -23,15 +23,7 @@ class ProductsController < ApplicationController
     product = Product.create(product_params)
 
     if product.valid?
-      ingredient_array = product.ingredients.downcase.split(",").map(&:strip)
-
-      ingredient_array.each do |i|
-        if Ingredient.where('ingredient LIKE ? ', "%#{i}%").count == 0
-          new = Ingredient.new
-          new.ingredient = i
-          new.save
-        end
-      end
+      Product.add_ingredient(product)
       render json: product, status: :created
     else
       render json: {errors: product.errors.messages}, status: :bad_request
@@ -39,36 +31,15 @@ class ProductsController < ApplicationController
   end
 
   def search
-    limit = params[:limit] || 10
-    page = params[:page] || 1
-    offset = ((page.to_i - 1) * limit.to_i) || 0
+    # limit = params[:limit] || 10
+    # page = params[:page] || 1
+    # offset = ((page.to_i - 1) * limit.to_i) || 0
+    # .limit(limit).offset(offset)
 
-    q = (params[:q].downcase || nil).split(' ')
-    products = []
-
-    products = Product.where("concat_ws(' ', brand, name, ingredients) ILIKE ?", "%#{q[0]}%") if q.length
-
-    if q.length > 1
-      i = 1
-      (q.length - 1).times do
-        products = products.select do |object|
-          (object.brand.include? q[i]) || (object.name.include? q[i]) || (object.ingredients.include? q[i])
-        end
-        i += 1
-      end
-    end
+    products = Product.search(params[:q])
 
     render json: products, status: :ok
   end
-
-  # def edit
-  # end
-  #
-  # def update
-  # end
-  #
-  # def destroy
-  # end
 
   private
 
