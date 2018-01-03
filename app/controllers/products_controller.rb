@@ -43,11 +43,21 @@ class ProductsController < ApplicationController
     page = params[:page] || 1
     offset = ((page.to_i - 1) * limit.to_i) || 0
 
-    q = params[:q].downcase || nil
+    q = (params[:q].downcase || nil).split(' ')
     products = []
-    products = Product.where('name LIKE ? '\
-      'OR brand LIKE ? '\
-      'OR ingredients LIKE ?', "%#{q}%", "%#{q}%", "%#{q}%").limit(limit).offset(offset) if q
+
+    products = Product.where("concat_ws(' ', brand, name, ingredients) ILIKE ?", "%#{q[0]}%") if q.length
+
+    if q.length > 1
+      i = 1
+      (q.length - 1).times do
+        products = products.select do |object|
+          (object.brand.include? q[i]) || (object.name.include? q[i]) || (object.ingredients.include? q[i])
+        end
+        i += 1
+      end
+    end
+
     render json: products, status: :ok
   end
 
